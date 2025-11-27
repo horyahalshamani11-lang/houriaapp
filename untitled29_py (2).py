@@ -43,5 +43,5 @@ if st.button("Predict"):
   event1=en.fit_transform([event])
 
 
-  pred=model.predict([nei1,day1,hour,temp,weather1,weekend1,event1,acc])
+  pred=model.predict([nei1,day1,hour,temp,weather1,weekend1,event1,acc]).reshape(-1,1)
   st.success("the traffic level is{}".format(pred))
