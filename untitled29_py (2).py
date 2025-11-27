@@ -47,4 +47,4 @@ if st.button("Predict"):
   ch=[nei1,day1,hour,temp,weather1,weekend1,event1,acc].reshape(-1,1)
   pred=model.predict(ch)
 
-    st.success("the traffic level is{}".format(pred))
+  st.success("the traffic level is{}".format(pred))
