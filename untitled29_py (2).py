@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1IL38dmsLCu49L_BpYKF9FTPFhzqF_mU6
 """
 
-!pip install streamlit
 
 import pickle as p
 import streamlit as st
