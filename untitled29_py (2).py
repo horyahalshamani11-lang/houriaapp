@@ -53,11 +53,10 @@ if st.button("Predict"):
   weather2=weather1.transform([weather])
   weekend2=weekend1.transform([weekend])
   event2=event1.transform([event])
-  transform=itertools.chain([nei2,day2,hour,temp,weather2,weekend2,event2,acc])
+  transform=itertools.chain([nei2,day2,[hour],[temp],weather2,weekend2,event2,[acc]])
   transform2=list(transform)
-  transform3=np.array(transform2)
-  transform4=transform2.reshape(1,-1)
-  pred=model.predict(transform4)
+  transform3=np.array(transform2).reshape(1,-1)
+  pred=model.predict(transform3)
   st.success("The traffic level is{}".format(pred))
   
 
