@@ -11,6 +11,8 @@ Original file is located at
 import pickle as p
 import streamlit as st
 from sklearn.preprocessing import LabelEncoder
+import numpy as np
+import itertools
 
 with open('model.pkl', 'rb') as f:
     model = p.load(f)
@@ -34,17 +36,30 @@ event=st.radio("Is there any events today?",["yes","no"])
 
 acc=st.select_slider("How many accidents today",range(0,7))
 
-if st.button("Predict"):
-  en=LabelEncoder()
-  nei1=en.fit_transform([nei])
-  day1=en.fit_transform([day])
-  weather1=en.fit_transform([weather])
-  weekend1=en.fit_transform([weekend])
-  event1=en.fit_transform([event])
-
+neile=LabelEncoder()
+nei1=neile.fit(["Al-Aziziyah", "Al-Khaldiyah", "Al-Shahba", "Al-Mabuth", "King Fahd", "Qurban", "Al-Rawabi", "Al-Anabis", "Quba", "Al-Arid", "Al‑Difa’a","Al‑Rannāna", "Railway", "Fort of Mukhayṭ, Muḍaynīb", "Shawrān", "Al‑Salām", "Airport Neighbourhood", "Al‑Nublā", "Al‑Bullā", "Wurqān", "Tībah", "Al‑Shahbā’", "Al‑Sakb"
+, "Al-Iskān", "Al‑Sadd", "Mahzūr", "Al‑Barakah", "Bani Bayāḍah", "Khakh", "Hathm", "Abū Kabīr", "Al‑Zahrah", "Bir ʿUthmān", "Al‑Duwaiḫlah", "Al‑Hadhrā", "Al‑Jābirah", "Al‑Ghabāh (The Forest)", "ʿAyn Al‑Khayf", "Al‑Qaswā’", "Al‑Rummānah", "Al‑Gharā’", "Bani Hārithah", "Shaẓāh", "Central District", "Al‑ʿAnābis", "Al‑Nakheel", "Bani Ẓafar", "Al‑Fath", "University Neighbourhood", "Bani Muʿāwiyah", "Al‑Usayfīrīn", "Al‑Ẓāhirah", "Al‑Jamāwāt", "Al‑Mughaysilah", "Katānah", "Al‑Naqus", "Abu Buriqā’", "Al‑Qiblatayn", "Al‑Dirʿ Mosque Neighbourhood", "Al‑Dawīmah", "Jabal Jummah & Ghurābah", "Al‑Rayāh", "Industrial / Factories Neighbourhood", "Raḥṭ", "Al‑Khātim", "Bani ʿAbd al-Ashhal", "Al‑Ṣādiqiyah", "Al‑ʿUyūn (The Springs)", "Sayyid al‑Shuhadāʾ", "Waʿīrah", "Al‑Jaṣṣah", "Al‑Siqyā’", "Dhū al‑Ḥalīfah", "Al‑ʿIhn", "Al‑Wubrah", "Al‑ʿUsbah", "Al‑Sīḥ", "Al‑Dār", "ʿUrwah", "Umm Khalid", "Mount Uhud / Jabal Uhud", "Jabal ʿIr", "The Garden Neighbourhood"])
+dayel=LabelEncoder()
+day1=dayel.fit(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"])
+weatherel=LabelEncoder()
+weather1=weatherel.fit(["Hot","Rainy","Cold","Partly Cloudy","Normal"])
+weekendle=LabelEncoder()
+weekend1=weekendle.fit(["yes","no"])
+eventle=LabelEncoder()
+event1=eventle.fit(["yes","no"]) 
+if st.button("Predict"): 
+  nei2=nei1.transform([nei])
+  day2=day1.transform([day])
+  weather2=weather1.transform([weather])
+  weekend2=weekend1.transform([weekend])
+  event2=event1.transform([event])
+  transform=itertools.chain([nei2,day2,hour,temp,weather2,weekend2,event2,acc])
+  transform2=list(transform)
+  transform3=np.array(transform2)
+  transform4=transform2.reshape(1,-1)
+  pred=model.predict(transform4)
+  st.success("The traffic level is{}".format(pred))
+  
 
   
-  pred=model.predict([[nei1,day1,hour,temp,weather1,weekend1,event1,acc]])
- 
-
-  st.success("the traffic level is{}".format(pred))
+  
